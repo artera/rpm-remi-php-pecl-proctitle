@@ -1,4 +1,5 @@
 rpmbuild_src = $(shell rpmbuild --eval '%{_sourcedir}')
+php_version = php74
 
 .PHONY: prepare
 prepare:
@@ -8,8 +9,9 @@ prepare:
 
 .PHONY: srpm
 srpm: prepare
-	rpmbuild -bs --define "_srcrpmdir $(outdir)" --define "scl_vendor remi" --define "_scl_prefix /opt/remi" --define "scl php74" $(spec)
+	sed -r '1 s/%define scl [^}]+/%define scl $(php_version)/' -i $(spec)
+	rpmbuild -bs -D "_srcrpmdir $(outdir)" -D "scl_vendor remi" -D "_scl_prefix /opt/remi" -D "scl $(php_version)" $(spec)
 
 .PHONY: rpm
 rpm: prepare
-	rpmbuild -bb --define "_rpmdir $(outdir)" --define "scl_vendor remi" --define "_scl_prefix /opt/remi" --define "scl php74" $(spec)
+	rpmbuild -bb -D "_rpmdir $(outdir)" -D "scl_vendor remi" -D "_scl_prefix /opt/remi" -D "scl $(php_version)" $(spec)

@@ -1,3 +1,5 @@
+%{!?scl: %define scl php74}
+
 # remirepo spec file for php-pecl-proctitle
 # with SCL compatibility, from Fedora:
 #
