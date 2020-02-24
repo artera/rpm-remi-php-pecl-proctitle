@@ -158,13 +158,13 @@ fi
 : Minimal load test for NTS extension
 %{__php} -n \
     -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep OAuth
+    --modules | grep %{pecl_name}
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} -n \
     -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep OAuth
+    --modules | grep %{pecl_name}
 %endif
 
 
