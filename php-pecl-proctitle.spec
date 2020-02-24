@@ -80,8 +80,6 @@ pcntl_fork() to identify running processes in process list
 
 Documentation: http://php.net/%{pecl_name}
 
-Package built for PHP %(%{__php} -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')%{?scl: as Software Collection (%{scl}%{!?scl_vendor:rh})}.
-
 
 %prep
 %setup -q -c
@@ -155,20 +153,6 @@ fi
 if [ $1 -eq 0 -a -x %{__pecl} ] ; then
     %{pecl_uninstall} %{pecl_name} >/dev/null || :
 fi
-%endif
-
-
-%check
-: Minimal load test for NTS extension
-%{__php} -n \
-    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
-
-%if %{with_zts}
-: Minimal load test for ZTS extension
-%{__ztsphp} -n \
-    -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
 %endif
 
 
