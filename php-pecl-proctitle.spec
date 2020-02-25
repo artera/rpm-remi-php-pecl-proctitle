@@ -1,6 +1,6 @@
 %{!?scl: %define scl php}
 %{!?scl_vendor: %define scl_vendor remi}
-%{!?_scl_prefix: %define _scl_prefix /opt/remi}
+%{!?_scl_prefix: %define _scl_prefix /opt/%{scl_vendor}}
 
 # remirepo spec file for php-pecl-proctitle
 # with SCL compatibility, from Fedora:
@@ -30,6 +30,8 @@ URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 BuildRequires:  %{?dtsprefix}gcc
+BuildRequires:  %{?scl_prefix}build
+BuildRequires:  %{?scl_prefix}scldevel
 BuildRequires:  %{?scl_prefix}php-devel
 BuildRequires:  %{?scl_prefix}php-pear
 
