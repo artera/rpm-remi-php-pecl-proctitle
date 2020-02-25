@@ -1,6 +1,6 @@
-%{!?scl: %define scl php}
-%{!?scl_vendor: %define scl_vendor remi}
-%{!?_scl_prefix: %define _scl_prefix /opt/%{scl_vendor}}
+%{!?scl: %global scl php}
+%{!?scl_vendor: %global scl_vendor remi}
+%{!?_scl_prefix: %global _scl_prefix /opt/%{scl_vendor}}
 
 # remirepo spec file for php-pecl-proctitle
 # with SCL compatibility, from Fedora:

@@ -4,7 +4,7 @@ rpmbuild_src = $(shell rpmbuild --eval '%{_sourcedir}')
 prepare:
 	dnf -y install rpmdevtools rpm-build scl-utils-build
 	cp *.* $(rpmbuild_src)
-	sed '1 s;^;%define scl php74\n;' -i $(spec)
+	sed -r '1 s;global scl [^}]+;global scl php74;' -i $(spec)
 	spectool -g -R $(spec)
 
 .PHONY: srpm
