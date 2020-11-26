@@ -1,4 +1,4 @@
-%{!?scl: %global scl php}
+%{!?scl: %global scl php80}
 %{!?scl_vendor: %global scl_vendor remi}
 %{!?_scl_prefix: %global _scl_prefix /opt/%{scl_vendor}}
 %global __python /usr/bin/python3
@@ -29,6 +29,7 @@ Summary:        PHP extension that allows setting the current process name on Li
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Patch0:         php8.patch
 
 BuildRequires:  %{?dtsprefix}gcc
 BuildRequires:  %{?scl_prefix}build
@@ -87,6 +88,7 @@ Documentation: http://php.net/%{pecl_name}
 
 %prep
 %setup -q -c
+%patch0 -p1 -d %{pecl_name}-%{version}
 
 mv %{pecl_name}-%{version} NTS
 

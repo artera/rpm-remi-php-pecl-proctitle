@@ -1,0 +1,51 @@
+diff --git a/php_proctitle.h b/php_proctitle.h
+index 29f2b9e..b4dd887 100644
+--- a/php_proctitle.h
++++ b/php_proctitle.h
+@@ -21,6 +21,14 @@
+ #ifndef PHP_PROCTITLE_H
+ #define PHP_PROCTITLE_H
+
++#if PHP_MAJOR_VERSION >= 8
++#define TSRMLS_CC
++#define TSRMLS_C
++#define TSRMLS_DC
++#define TSRMLS_D
++#define TSRMLS_FETCH()
++#endif
++
+ #define PHP_PROCTITLE_VERSION "0.1.2"
+
+ extern zend_module_entry proctitle_module_entry;
+diff --git a/proctitle.c b/proctitle.c
+index b9b80ee..4c8ec78 100644
+--- a/proctitle.c
++++ b/proctitle.c
+@@ -23,6 +23,7 @@
+ #endif
+
+ #include <php.h>
++#include "ext/standard/info.h"
+ #include <SAPI.h>
+ #include <dlfcn.h>
+ #include <string.h>
+@@ -138,9 +139,7 @@ PHP_MINFO_FUNCTION(proctitle)
+ /* {{{ proctitle_module_entry
+  */
+ zend_module_entry proctitle_module_entry = {
+-#if ZEND_MODULE_API_NO >= 20010901
+ 	STANDARD_MODULE_HEADER,
+-#endif
+ 	"proctitle",
+ 	proctitle_functions,
+ #ifndef PHP_SYSTEM_PROVIDES_SETPROCTITLE
+@@ -152,9 +151,7 @@ zend_module_entry proctitle_module_entry = {
+ 	NULL,
+ 	NULL,
+ 	PHP_MINFO(proctitle),
+-#if ZEND_MODULE_API_NO >= 20010901
+ 	PHP_PROCTITLE_VERSION,
+-#endif
+ 	STANDARD_MODULE_PROPERTIES
+ };
+ /* }}} */
