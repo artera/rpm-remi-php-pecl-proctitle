@@ -54,11 +54,12 @@ Obsoletes:     php72w-pecl-%{pecl_name} <= %{version}
 %endif
 %if "%{php_version}" > "7.3"
 Obsoletes:     php73-pecl-%{pecl_name}  <= %{version}
-Obsoletes:     php73w-pecl-%{pecl_name} <= %{version}
 %endif
 %if "%{php_version}" > "7.4"
 Obsoletes:     php74-pecl-%{pecl_name}  <= %{version}
-Obsoletes:     php74w-pecl-%{pecl_name} <= %{version}
+%endif
+%if "%{php_version}" > "8.0"
+Obsoletes:     php80-pecl-%{pecl_name}  <= %{version}
 %endif
 %endif
 
