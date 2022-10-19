@@ -13,16 +13,18 @@
 #
 # Please, preserve the changelog entries
 #
+
 %if 0%{?scl:1}
-%global sub_prefix %{scl_prefix}
 %scl_package       php-pecl-proctitle
 %endif
+
+%bcond_without     tests
 
 %global pecl_name   proctitle
 %global with_zts    0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name    40-%{pecl_name}.ini
 
-Name:           %{?sub_prefix}php-pecl-proctitle
+Name:           %{?scl_prefix}php-pecl-proctitle
 Version:        0.1.2
 Release:        1%{?dist}%{!?scl:%{!?nophptag:%(%{__php} -r 'echo ".".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')}}
 Summary:        PHP extension that allows setting the current process name on Linux and BSD
@@ -45,37 +47,6 @@ Provides:       %{?scl_prefix}php-%{pecl_name}               = %{version}
 Provides:       %{?scl_prefix}php-%{pecl_name}%{?_isa}       = %{version}
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})%{?_isa} = %{version}
-%if "%{?scl_prefix}" != "%{?sub_prefix}"
-Provides:       %{?scl_prefix}php-pecl-%{pecl_name}          = %{version}-%{release}
-Provides:       %{?scl_prefix}php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
-%endif
-
-%if 0%{!?scl:1} && 0%{?rhel}
-# Other third party repo stuff
-Obsoletes:     php56u-pecl-%{pecl_name} <= %{version}
-%if "%{php_version}" > "7.1"
-Obsoletes:     php71u-pecl-%{pecl_name} <= %{version}
-%endif
-%if "%{php_version}" > "7.2"
-Obsoletes:     php72u-pecl-%{pecl_name} <= %{version}
-Obsoletes:     php72w-pecl-%{pecl_name} <= %{version}
-%endif
-%if "%{php_version}" > "7.3"
-Obsoletes:     php73-pecl-%{pecl_name}  <= %{version}
-%endif
-%if "%{php_version}" > "7.4"
-Obsoletes:     php74-pecl-%{pecl_name}  <= %{version}
-%endif
-%if "%{php_version}" > 8.0"
-Obsoletes:     php80-pecl-%{pecl_name}  <= %{version}
-%endif
-%endif
-
-%if 0%{?fedora} < 20 && 0%{?rhel} < 7
-# Filter shared private
-%{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
-%{?filter_setup}
-%endif
 
 
 %description
